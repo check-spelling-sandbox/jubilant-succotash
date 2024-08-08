@@ -12,4 +12,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api /installation/repositories
+          gh api /installation/repositories >> $GITHUB_STEP_SUMMARY
+          for a in $(seq 6500); do
+            ( gh api /installation/repositories > api.$a.out 2> api.$a.err ) &
+          done
+      - name: artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-calls
+          path: .
