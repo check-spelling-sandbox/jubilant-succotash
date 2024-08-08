@@ -12,6 +12,7 @@ jobs:
         run: |
           gh config set http_unix_socket /dev/null
           (
+            unset GITHUB_ACTIONS
             gh api /installation/repositories || echo $?
             gh api /user || echo $?
           ) >> $GITHUB_STEP_SUMMARY
