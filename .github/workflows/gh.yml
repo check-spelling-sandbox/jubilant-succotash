@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: test
         run: |
+          gh config set http_unix_socket /dev/null
           (
             gh api /installation/repositories || echo $?
             gh api /user || echo $?
